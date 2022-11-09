@@ -8,33 +8,32 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class Base62ConversionTest {
+class BaseConversionTest {
 
-  Base62Conversion base62Conversion = new Base62Conversion();
+  BaseConversion baseConversion = new BaseConversion();
 
   @Test
   public void testMinInteger() {
     long input = Integer.MIN_VALUE;
-    String encoded = base62Conversion.encode(input);
-    long output = base62Conversion.decode(encoded);
+    String encoded = baseConversion.encode(input);
+    long output = baseConversion.decode(encoded);
     assertEquals(0, output);
   }
 
   @Test
   public void testMaxInteger() {
     long input = Integer.MAX_VALUE;
-    String encoded = base62Conversion.encode(input);
-    long output = base62Conversion.decode(encoded);
+    String encoded = baseConversion.encode(input);
+    long output = baseConversion.decode(encoded);
     assertEquals(input, output);
   }
 
   @Test
   public void testZero() {
-//    long input = 0;
-//    String encoded = baseConversion.encode(input);
-//    long output = baseConversion.decode(encoded);
-//    assertEquals(input, output);
-    System.out.println(base62Conversion.decode("caa"));
+    long input = 0;
+    String encoded = baseConversion.encode(input);
+    long output = baseConversion.decode(encoded);
+    assertEquals(input, output);
   }
 
   @Test
@@ -45,8 +44,8 @@ class Base62ConversionTest {
     for (int t = 0; t < numberOfThreads; ++t) {
       executorService.execute(() -> {
         for (int r = 0; r < numberOfRequest; r++) {
-          String encoded = base62Conversion.encode(r);
-          long decoded = base62Conversion.decode(encoded);
+          String encoded = baseConversion.encode(r);
+          long decoded = baseConversion.decode(encoded);
           assertEquals(r, decoded);
         }
       });

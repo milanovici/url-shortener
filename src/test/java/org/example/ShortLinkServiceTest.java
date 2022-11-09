@@ -7,16 +7,23 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class ShortLinkServiceTest {
 
   private final ShortLinkRepository shortLinkRepository = new ShortLinkRepository();
 
-  private final Base62Conversion base62Conversion = new Base62Conversion();
+  private final BaseConversion baseConversion = new BaseConversion();
 
-  private final ShortLinkService shortLinkService = new ShortLinkService(shortLinkRepository, base62Conversion);
+  private final ShortLinkService shortLinkService = new ShortLinkService(shortLinkRepository, baseConversion);
 
-  // duplicates have different short url
+  @Test
+  public void sameInputLongUrlsShouldHaveDifferentShortUrl() {
+    String url = "www.google.com/hello-world-123";
+    String shortUrl1 = shortLinkService.shortenUrl(url);
+    String shortUrl2 = shortLinkService.shortenUrl(url);
+    assertNotEquals(shortUrl1, shortUrl2);
+  }
   @Test
   public void shortUrlShouldHave6Characters() {
     String url = "www.google.com/hello-world-123";

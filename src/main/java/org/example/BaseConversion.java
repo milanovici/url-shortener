@@ -3,9 +3,8 @@ package org.example;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Base62Conversion {
+public class BaseConversion {
 
-  //abcdefghijklmnopqrstuvwxyz
   private static final String dictionary = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
   private static final Map<Character, Integer> dictionaryMap = new HashMap<>();
@@ -47,7 +46,6 @@ public class Base62Conversion {
     char[] chars = input.toCharArray();
     int length = input.length();
 
-    // 2 * 62^2 + 0 * 62^1 + 0 * 62^0
     long output = 0;
     int counter = 1;
     for (char ch : chars) {

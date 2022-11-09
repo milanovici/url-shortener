@@ -3,22 +3,22 @@ package org.example;
 public class ShortLinkService {
 
   private final ShortLinkRepository shortLinkRepository;
-  private final Base62Conversion base62Conversion;
+  private final BaseConversion baseConversion;
 
-  public ShortLinkService(ShortLinkRepository shortLinkRepository, Base62Conversion base62Conversion) {
+  public ShortLinkService(ShortLinkRepository shortLinkRepository, BaseConversion baseConversion) {
     this.shortLinkRepository = shortLinkRepository;
-    this.base62Conversion = base62Conversion;
+    this.baseConversion = baseConversion;
   }
 
   public String shortenUrl(String url) {
     long id = shortLinkRepository.getId();
     final ShortLink shortLink = new ShortLink(id, url);
     shortLinkRepository.save(shortLink);
-    return base62Conversion.encode(id);
+    return baseConversion.encode(id);
   }
 
   public String resolve(String shortUrl) {
-    long decode = base62Conversion.decode(shortUrl);
+    long decode = baseConversion.decode(shortUrl);
     ShortLink shortLink = shortLinkRepository.find(decode);
     return shortLink.getDestination();
   }
